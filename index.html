@@ -1,42 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Radar de Preços — R$/m² por bairro no litoral</title>
-<meta name="description" content="Radar interativo de preços por m² nos bairros do litoral paulista. Satélite da rede praia.digital">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar de Preços do Litoral | Praia Digital</title>
+<meta name="description" content="Compare preço por m², variação anual e tendência entre as principais cidades do litoral paulista. Satélite de praia.digital.">
 <style>
-body{margin:0;font-family:system-ui,sans-serif;background:#0b2239;color:#eaf6ff}
-header{padding:24px;text-align:center;background:linear-gradient(120deg,#0077b6,#00b4d8)}
-nav a{color:#ffd166;margin:0 8px;text-decoration:none;font-size:14px}
-.wrap{max-width:900px;margin:auto;padding:24px}
-.bar{display:grid;grid-template-columns:150px 1fr 90px;align-items:center;gap:10px;margin:10px 0;cursor:pointer}
-.bar .track{background:#123a5c;border-radius:8px;height:28px;overflow:hidden}
-.bar .fill{height:100%;border-radius:8px;background:linear-gradient(90deg,#00b4d8,#ffd166);width:0;transition:width 1s}
-.sel .fill{background:linear-gradient(90deg,#06d6a0,#ffd166)}
-#detail{background:#123a5c;border-radius:16px;padding:20px;margin-top:24px;min-height:90px}
-input{width:100%;padding:12px;border-radius:10px;border:none;margin-bottom:16px;font-size:16px}
-footer{padding:20px;text-align:center;font-size:13px;color:#8ecae6}
-footer a{color:#ffd166}
-</style></head>
+body{font-family:system-ui,-apple-system,sans-serif;margin:0;background:#f8fafc;color:#0f172a;line-height:1.6}
+.hero{background:linear-gradient(135deg,#0c4a6e,#0284c7);color:#fff;padding:50px 20px;text-align:center}
+.container{max-width:1000px;margin:0 auto;padding:30px 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.cta{display:inline-block;background:#fff;color:#0c4a6e;padding:10px 22px;border-radius:8px;text-decoration:none;font-weight:700;margin:6px}
+button{background:#0284c7;color:#fff;border:none;padding:10px 18px;border-radius:8px;font-weight:700;cursor:pointer}
+input,select,textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;margin:6px 0;font-family:inherit}
+footer{text-align:center;padding:24px;color:#64748b;font-size:.9em}
+.bar{height:14px;border-radius:7px;background:linear-gradient(90deg,#0ea5e9,#0369a1)}
+</style>
+</head>
 <body>
-<header><h1>📡 Radar de Preços</h1><p>Preço médio por m² nos bairros do litoral paulista (estimativas 2026)</p>
-<nav><a href="https://praia.digital">Praia Digital</a><a href="https://praia.digital/match-praia">Match Praia</a><a href="https://praia.digital/avaliador-imoveis">Avaliador</a><a href="https://praia.digital/apps">Todos os apps</a></nav></header>
-<div class="wrap">
-<input id="q" placeholder="🔍 Buscar bairro ou cidade..." oninput="draw()">
-<div id="bars"></div><div id="detail">Clique em um bairro para ver a análise 👇</div>
+<nav style="background:#0c4a6e;padding:12px 20px;display:flex;gap:14px;flex-wrap:wrap;font-family:system-ui,sans-serif">
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praia.digital/">🌊 Praia Digital</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/apps/">Hub</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/hermes-agents/">Hermes Agents</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/area-anfitriao/">Anfitrião</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/simulador-roi/">ROI</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/simulador-credito/">Crédito</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/guia-litoral/">Guia</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/blog-litoral/">Blog</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/calculadoras/">Calculadoras</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/newsletter-litoral/">Newsletter</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/eventos-litoral/">Eventos</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/radar-precos/">Radar</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/concierge-ia/">Concierge IA</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/mapa-investidor/">Mapa</a>
+<a style="color:#e0f2fe;text-decoration:none;font-weight:600" href="https://praiadigital.github.io/checklist-anfitriao/">Checklist</a>
+</nav>
+<div class="hero"><h1>📡 Radar de Preços do Litoral</h1><p>Preço médio por m² e tendência por cidade — dados de referência 2026 para investidores e compradores.</p>
+<a class="cta" href="https://praiadigital.github.io/mapa-investidor/">🗺️ Ver Mapa do Investidor</a></div>
+<div class="container">
+<div class="card"><label><strong>Ordenar por:</strong></label>
+<select id="sort" onchange="render()"><option value="preco">Preço/m² (maior)</option><option value="var">Variação anual</option><option value="nome">Cidade (A-Z)</option></select></div>
+<div id="lista" class="grid"></div>
+<div class="card"><h3>💡 Próximo passo</h3><p>Achou uma cidade interessante? Simule o rendimento no <a href="https://praiadigital.github.io/simulador-roi/">Simulador ROI</a> ou o financiamento no <a href="https://praiadigital.github.io/simulador-credito/">Simulador de Crédito</a>. Para relatórios completos, veja o <a href="https://praiadigital.github.io/guia-litoral/">Guia do Litoral</a>.</p></div>
 </div>
-<footer>Rede <a href="https://praia.digital">praia.digital</a> · <a href="https://praia.digital/investidores">Investidores</a> · <a href="https://praia.digital/simulador-roi">Simulador ROI</a> · <a href="https://praia.digital/plano-litoral">Plano Litoral</a></footer>
 <script>
 const dados=[
-{b:'Gonzaga',c:'Santos',v:12400,t:+8.2},{b:'Boqueirão',c:'Santos',v:11800,t:+7.5},
-{b:'Pitangueiras',c:'Guarujá',v:10900,t:+6.8},{b:'Astúrias',c:'Guarujá',v:9600,t:+6.1},
-{b:'Riviera de São Lourenço',c:'São Sebastião',v:15200,t:+11.4},{b:'Maresias',c:'São Sebastião',v:13500,t:+10.2},
-{b:'Canto do Forte',c:'Praia Grande',v:6800,t:+9.1},{b:'Guilhermina',c:'Praia Grande',v:7400,t:+8.8},
-{b:'Martim de Sá',c:'Caraguatatuba',v:7200,t:+7.9},{b:'Centro',c:'Caraguatatuba',v:6100,t:+5.4},
-{b:'Enseada',c:'Guarujá',v:8900,t:+6.5},{b:'Ponta da Praia',c:'Santos',v:10200,t:+7.1}];
-function fmt(v){return 'R$ '+v.toLocaleString('pt-BR')}
-function draw(){const q=document.getElementById('q').value.toLowerCase();const max=Math.max(...dados.map(d=>d.v));
-document.getElementById('bars').innerHTML=dados.filter(d=>(d.b+d.c).toLowerCase().includes(q)).sort((a,b)=>b.v-a.v).map((d,i)=>`<div class="bar" onclick="det('${d.b}')"><span>${d.b}<br><small>${d.c}</small></span><div class="track"><div class="fill" style="width:${d.v/max*100}%"></div></div><b>${fmt(d.v)}</b></div>`).join('');}
-function det(b){const d=dados.find(x=>x.b===b);document.getElementById('detail').innerHTML=`<h2>${d.b} — ${d.c}</h2><p>💵 ${fmt(d.v)}/m² · Valorização anual: <b style="color:#06d6a0">+${d.t}%</b></p><p>Um apê de 60m² sai por ≈ <b>${fmt(d.v*60)}</b>. Aluguel de temporada estimado: <b>${fmt(Math.round(d.v*60*0.004))}/noite</b> na alta.</p><p><a style="color:#ffd166" href="https://praia.digital/calculadora-temporada">Simular rendimento →</a> · <a style="color:#ffd166" href="https://praia.digital/match-praia">Ver imóveis no Match →</a></p>`;}
-draw();
-</script></body></html>
+{nome:"Guarujá",preco:12500,var:8.4,nota:"Mercado consolidado, alta liquidez."},
+{nome:"Santos",preco:11800,var:7.1,nota:"Valorização urbana contínua, forte aluguel anual."},
+{nome:"Bertioga",preco:9200,var:11.3,nota:"Riviera puxa premium; maior alta da região."},
+{nome:"Praia Grande",preco:7400,var:9.6,nota:"Volume alto e entrada acessível."},
+{nome:"Mongaguá",preco:5200,var:6.2,nota:"Custo baixo, turismo de fim de semana."},
+{nome:"Itanhaém",preco:5600,var:6.8,nota:"Crescimento gradual, segunda residência."},
+{nome:"São Vicente",preco:6800,var:5.4,nota:"Demanda estável, preço de entrada."},
+{nome:"Peruíbe",preco:4900,var:10.2,nota:"Aposta de expansão, atenção à infraestrutura."}];
+function render(){
+const k=document.getElementById('sort').value;
+const d=[...dados].sort((a,b)=>k==='nome'?a.nome.localeCompare(b.nome):b[k]-a[k]);
+const max=Math.max(...dados.map(x=>x.preco));
+document.getElementById('lista').innerHTML=d.map(c=>`<div class="card"><h3>🏙️ ${c.nome}</h3><p style="font-size:1.4em;font-weight:800;color:#0369a1">R$ ${c.preco.toLocaleString('pt-BR')}/m²</p><div class="bar" style="width:${Math.round(c.preco/max*100)}%"></div><p>📈 Variação 12m: <strong>${c.var}%</strong></p><p style="color:#475569">${c.nota}</p></div>`).join('');
+}
+render();
+</script>
+<footer>© Praia Digital — 2026 — Satélite da rede <a href="https://praia.digital">praia.digital</a> · <a href="https://praiadigital.github.io/apps/">Ver todos os apps</a></footer>
+</body>
+</html>
